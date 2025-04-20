@@ -44,12 +44,17 @@ class InstagramScraper:
         Returns:
             InstagramPost or None: An InstagramPost object if scraping was successful, None otherwise
         """
+        sleep_for_random_seconds(2, 3)
         post_caption_containers = self.driver.find_elements(By.XPATH, "//h1[@dir='auto']")
         url = self.driver.current_url
         post_id = urlparse(url).path.strip("/").split("/")[1]
 
         try:
-            time_elements = self.driver.find_elements(By.XPATH, f"//a[contains(@href, '/p/{post_id}')]//time")
+            time_elements = self.driver.find_elements(
+                By.XPATH,
+                "//time[contains(text(), 'minutes ago') or contains(text(), 'hours ago') or contains(text(), 'days ago') or contains(text(), 'day ago') or contains(text(), 'hour ago') or contains(text(), 'minute ago')]"
+            )
+
             if time_elements:
                 time_element = time_elements[-1]
             else:
@@ -101,14 +106,13 @@ class InstagramScraper:
         posts = []
 
         for handle in handles:
+            print(f"Scraping {handle}...")
             self.go_to_profile(handle)
 
             try:
                 pinned_posts = self.driver.find_elements(By.CSS_SELECTOR, "svg[aria-label='Pinned post icon']")
                 pinned_posts_count = len(pinned_posts)
-                print(f"{pinned_posts_count} pinned posts found")
             except NoSuchElementException:
-                print("No pinned posts found")
                 pinned_posts_count = 0
 
             pinned_clicked = 0
@@ -125,7 +129,7 @@ class InstagramScraper:
                         if pinned_clicked > pinned_posts_count:
                             continue
                 else:
-                    print("No posts found")
+                    print("No posts found for this handle. Skipping...")
                     continue
 
                 # Continue to next posts

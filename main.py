@@ -20,6 +20,10 @@ def main():
 
     # Ask for goal
     goal = prompt_for_goal()
+    if not goal:
+        print("No goal provided")
+    else:
+        print(f"Goal: {goal}")
 
     # Initialize database
     db_manager = DatabaseManager(DATABASE_FILE)
@@ -30,10 +34,12 @@ def main():
     if not handles:
         handles = DEFAULT_HANDLES
     random.shuffle(handles)
+    print(f"Handles to scrape: {handles}")
 
     # Determine minimum date for scraping (DAYS_TO_LOOK_BACK days ago or last scrape date, whichever is earlier)
     days_ago = datetime.now() - timedelta(days=DAYS_TO_LOOK_BACK)
     min_date = max(last_scrape_date, days_ago) if last_scrape_date else days_ago
+    print(f"Minimum date for scraping: {min_date}")
 
     # Setup browser and login
     driver = setup_browser()
@@ -43,6 +49,16 @@ def main():
     scraper = InstagramScraper(driver)
     posts = scraper.scrape_posts(min_date, handles)
 
+    if not posts:
+        print("No new posts found")
+        driver.quit()
+        ollama_sh.send_signal(signal.SIGINT)
+        subprocess.Popen(["osascript", "-e", 'tell app "Ollama" to quit'])
+        db_manager.close()
+        return
+    else:
+        print(f"Found {len(posts)} new posts")
+
     # Close browser once done
     sleep_for_random_seconds(1, 1)
     driver.quit()
@@ -50,6 +66,7 @@ def main():
     # Create a summary and save data to database
     summarizer = ContentSummarizer(model=MODEL_NAME)
     summary = summarizer.create_unified_summary_per_single_post(posts, goal)
+    print("Summary created, stopping ollama")
 
     # Close ollama
     ollama_sh.send_signal(signal.SIGINT)
@@ -65,9 +82,11 @@ def main():
     db_manager.close()
 
     # Create pdf
+    print("Creating PDF")
     file_name = create_output_file_name(goal=goal)
     output_file = create_summary_output_file(goal=goal)
     create_pdf(summary, file_name, output_file)
+    print("Opening PDF")
 
     # Open PDF
     subprocess.run(["open", output_file])

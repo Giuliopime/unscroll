@@ -66,6 +66,8 @@ class ContentSummarizer:
                 "summary": summary
             })
 
+        print(f"Individual post summaries procecced, creating overview")
+
         # Create the unified markdown file
         result = ""
         # Write header

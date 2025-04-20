@@ -53,7 +53,7 @@ class InstagramScraper:
             #     By.XPATH,
             #     "//time[contains(text(), 'minutes ago') or contains(text(), 'hours ago') or contains(text(), 'days ago') or contains(text(), 'day ago') or contains(text(), 'hour ago') or contains(text(), 'minute ago')]"
             # )
-            time_elements = self.driver.find_elements(By.XPATH, f"//a[contains(@href, '/p/{post_id}')]//time")
+            time_elements = self.driver.find_elements(By.XPATH, f"//a[contains(@href, '/p/{post_id}') or contains(@href, '/reel/{post_id}')]//time")
 
             if time_elements:
                 time_element = time_elements[-1]

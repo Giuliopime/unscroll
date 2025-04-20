@@ -14,14 +14,28 @@ INSTAGRAM_PASSWORD = os.environ.get("INSTAGRAM_PASSWORD")
 # Default Instagram handles to scrape
 DEFAULT_HANDLES = [
     "ilmuretto_official",
-    # "after_caposile",
-    # "cusnautico",
-    # "suoniuniversitari",
-    # "unitinpovo",
-    # "unidea_tn",
-    # "trentino.eventi",
-    # "dolcevitaeventi",
-    # "basemen.tn"
+    "after_caposile",
+    "cusnautico",
+    "suoniuniversitari",
+    "unitinpovo",
+    "unidea_tn",
+    "trentino.eventi",
+    "dolcevitaeventi",
+    "basemen.tn",
+    "density360experience",
+    "oak_app",
+    "less___names",
+    "enjoy_tn",
+    "things.app",
+    "speckandtech",
+    "todoistofficial",
+    "trentinodascoprire",
+    "we_are_now_bonobo",
+    "esntrento",
+    "milanocortina2026",
+    "ilfestivaldellosportditrento",
+    "wanderlust__vision",
+    "cineworldtrento"
 ]
 
 # Browser settings
@@ -31,7 +45,7 @@ COOKIES_FILE = os.path.join("data", "cookies.pkl")
 DATABASE_FILE = os.path.join("data", "instagram_scraper.db")
 
 # Scraping settings
-DAYS_TO_LOOK_BACK = 2
+DAYS_TO_LOOK_BACK = 1
 
 # Model settings
 MODEL_NAME = "mistral:7b-instruct"

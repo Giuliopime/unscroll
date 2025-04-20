@@ -2,3 +2,4 @@ venv
 .idea
 data/cookies.pkl
 .env
+summaries

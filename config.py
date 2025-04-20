@@ -1,4 +1,3 @@
-# config.py
 """
 Configuration settings for the Instagram scraper
 """
@@ -14,8 +13,8 @@ INSTAGRAM_PASSWORD = os.environ.get("INSTAGRAM_PASSWORD")
 
 # Default Instagram handles to scrape
 DEFAULT_HANDLES = [
-    # "ilmuretto_official",
-    "after_caposile"
+    "ilmuretto_official",
+    # "after_caposile"
     # "cusnautico",
     # "suoniuniversitari",
     # "unitinpovo",
@@ -32,4 +31,7 @@ COOKIES_FILE = os.path.join("data", "cookies.pkl")
 DATABASE_FILE = os.path.join("data", "instagram_scraper.db")
 
 # Scraping settings
-DAYS_TO_LOOK_BACK = 2
+DAYS_TO_LOOK_BACK = 3
+
+# Model settings
+MODEL_NAME = "mistral:7b-instruct"

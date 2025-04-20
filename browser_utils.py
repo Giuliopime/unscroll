@@ -1,4 +1,3 @@
-# browser_utils.py
 import os
 import pickle
 import time

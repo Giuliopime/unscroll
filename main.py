@@ -33,7 +33,7 @@ def main():
 
     # Determine minimum date for scraping (DAYS_TO_LOOK_BACK days ago or last scrape date, whichever is earlier)
     days_ago = datetime.now() - timedelta(days=DAYS_TO_LOOK_BACK)
-    min_date = min(last_scrape_date, days_ago) if last_scrape_date else days_ago
+    min_date = max(last_scrape_date, days_ago) if last_scrape_date else days_ago
 
     # Setup browser and login
     driver = setup_browser()

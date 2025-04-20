@@ -44,16 +44,16 @@ class InstagramScraper:
         Returns:
             InstagramPost or None: An InstagramPost object if scraping was successful, None otherwise
         """
-        sleep_for_random_seconds(2, 3)
         post_caption_containers = self.driver.find_elements(By.XPATH, "//h1[@dir='auto']")
         url = self.driver.current_url
         post_id = urlparse(url).path.strip("/").split("/")[1]
 
         try:
-            time_elements = self.driver.find_elements(
-                By.XPATH,
-                "//time[contains(text(), 'minutes ago') or contains(text(), 'hours ago') or contains(text(), 'days ago') or contains(text(), 'day ago') or contains(text(), 'hour ago') or contains(text(), 'minute ago')]"
-            )
+            # time_elements = self.driver.find_elements(
+            #     By.XPATH,
+            #     "//time[contains(text(), 'minutes ago') or contains(text(), 'hours ago') or contains(text(), 'days ago') or contains(text(), 'day ago') or contains(text(), 'hour ago') or contains(text(), 'minute ago')]"
+            # )
+            time_elements = self.driver.find_elements(By.XPATH, f"//a[contains(@href, '/p/{post_id}')]//time")
 
             if time_elements:
                 time_element = time_elements[-1]

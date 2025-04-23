@@ -2,6 +2,7 @@
 from datetime import datetime
 from urllib.parse import urlparse
 
+from selenium.common import ElementNotInteractableException
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 
@@ -88,6 +89,9 @@ class InstagramScraper:
                 return True
             else:
                 return False
+        except ElementNotInteractableException:
+            print("Could not click on 'Next' button.")
+            return False
         except NoSuchElementException:
             print("No more posts to scrape")
             return False

@@ -45,7 +45,7 @@ COOKIES_FILE = os.path.join("data", "cookies.pkl")
 DATABASE_FILE = os.path.join("data", "instagram_scraper.db")
 
 # Scraping settings
-DAYS_TO_LOOK_BACK = 1
+DAYS_TO_LOOK_BACK = 2
 
 # Model settings
 MODEL_NAME = "mistral:7b-instruct"

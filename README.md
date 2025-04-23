@@ -2,6 +2,8 @@
 
 This tool scrapes Instagram posts from specified handles, stores them in a SQLite database, and creates a markdown PDF summary using AI.
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/WoVhrl_4a28" frameborder="0" allowfullscreen></iframe>
+
 ## Files Structure
 
 - `main.py`: Entry point for the application  
